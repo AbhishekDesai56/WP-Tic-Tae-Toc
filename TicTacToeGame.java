@@ -76,27 +76,64 @@ public class TicTacToeGame {
 				break;
 			}
     }
-			
-    static void playerTurn() {
-    	
-    	String userInut;
-		try {
-			System.out.println("Where would you like to play? (1-9)");
-			userInut = reader.readLine();
-			placeMove(userInut, player1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-    
-    private static void computerMove() {
-    	Random random = new Random();
-		int computerMove;
-		computerMove = random.nextInt(9) + 1;
-		placeMove(Integer.toString(computerMove), player2);
-		}
-    
+	
+	 private static boolean isSpaceAvaiable(char[] board, int position) {
+			switch (position) {
+			case 1:
+				return (board[1] == 0);	
+			case 2:
+				return (board[2] == 0);
+			case 3:
+				return (board[3] == 0);
+			case 4:
+				return (board[4] == 0);
+			case 5:
+				return (board[5] == 0);
+			case 6:
+				return (board[6] == 0);
+			case 7:
+				return (board[7] == 0);
+			case 8:
+				return (board[8] == 0);
+			case 9:
+				return (board[9] == 0);
+			default:
+				return false;
+			}
+	 }
+	 
+	 static void playerTurn() {
+	    	String userInut;
+			try {
+				while(true) {
+					System.out.println("Where would you like to play? (1-9)");
+					userInut = reader.readLine();
+					if(isSpaceAvaiable(board, Integer.parseInt(userInut))) {
+						break;
+					} else {
+						System.out.println(userInut + "");
+					}
+				}
+				placeMove(userInut, player1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	    
+	 private static void computerMove() {
+	 	Random random = new Random();
+			int computerMove;
+			while(true) {
+				computerMove = random.nextInt(9) + 1;
+				if(isSpaceAvaiable(board, computerMove)) {
+					break;
+				}
+			}
+			placeMove(Integer.toString(computerMove), player2);
+			System.out.println("Computer Chose: " + computerMove);
+	 }
+	     
 	public static void main(String args[])  {
 		board[0] = '\0';
 		board[1] = '\0';
