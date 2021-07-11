@@ -10,7 +10,7 @@ public class TicTacToeGame {
 	static char player1, player2;
 	
 	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	static void Board() {
+	static void board() {
 		
 		System.out.println(board[1] + "  | " + board[2] + " | " + board[3]);
         System.out.println("-----------");
@@ -36,6 +36,10 @@ public class TicTacToeGame {
 			e.printStackTrace();
 		}
 	}
+    
+    static void showBoard() {
+    	board();
+    }
 	
 	public static void main(String args[])  {
 		board[0] = '\0';
@@ -49,10 +53,8 @@ public class TicTacToeGame {
 		board[8] = '\0';
 		board[9] = '\0';
 		
-		Board();
+		board();
 		selectXandZero();
+		showBoard();
 	}		 
-		
-	
-	
 }
