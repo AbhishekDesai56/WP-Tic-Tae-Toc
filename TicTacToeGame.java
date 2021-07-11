@@ -9,7 +9,7 @@ public class TicTacToeGame {
 	static char[] board = new char[10];
 	static String  playerSelected;
 	static char player1, player2;
-	static int count;
+	static int count,indexWinningPosition;
 	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	static void board() {
 		
@@ -122,14 +122,18 @@ public class TicTacToeGame {
 	    }
 	    
 	 private static void computerMove() {
-	 	Random random = new Random();
-			int computerMove;
-			while(true) {
-				computerMove = random.nextInt(9) + 1;
-				if(isSpaceAvaiable(board, computerMove)) {
+		 int computerMove;
+		 if(checkPossibilityToWin(player2)) {
+			  computerMove = indexWinningPosition;
+		 } else {
+			 Random random = new Random();
+			 while(true) {
+				 computerMove = random.nextInt(9) + 1;
+				 if(isSpaceAvaiable(board, computerMove)) {
 					break;
-				}
-			}
+				 }
+			 }
+		 }
 			placeMove(Integer.toString(computerMove), player2);
 			System.out.println("Computer Chose: " + computerMove);
 	 }
@@ -204,6 +208,83 @@ public class TicTacToeGame {
 		 } else if(board[2] == symbol  && board[5] == symbol && board[8] == symbol) {
 			 return true;
 		 }
+		 return false;
+	 }
+	 
+	 private static boolean checkPossibilityToWin(char player) {
+		 if(board[1] == player  && board[2] == player && board[3] == 0) {
+			 indexWinningPosition = 3;
+			 return true;
+		 } else if(board[1] == player  && board[2] == 0 && board[3] == player) {
+			 indexWinningPosition = 2;
+			 return true; 
+		 } else if(board[1] == 0  && board[2] == player && board[3] == player) {
+			 indexWinningPosition = 1;
+			 return true; 
+		 } else if(board[4] == player  && board[5] == player && board[6] == 0) {
+			 indexWinningPosition = 6;
+			 return true;
+		 } else if(board[4] == player  && board[5] == 0 && board[6] == player) {
+			 indexWinningPosition = 5;
+			 return true;
+		 } else if(board[4] == 0  && board[5] == player && board[6] == player) {
+			 indexWinningPosition = 4;
+			return true;
+		 } else if(board[7] == player  && board[8] == player && board[9] == 0) {
+			 indexWinningPosition = 9;
+			 return true;
+		 } else if(board[7] == player  && board[8] == 0 && board[9] == player) {
+			 indexWinningPosition = 8;
+			 return true;
+		 } else if(board[7] == 0  && board[8] == player && board[9] == player) {
+			 indexWinningPosition = 7;
+			 return true;
+		 } else if(board[1] == player  && board[4] == player && board[7] == 0) {
+			 indexWinningPosition = 7;
+			 return true;
+		 } else if(board[1] == player  && board[4] == 0 && board[7] == player) {
+			 indexWinningPosition = 4;
+			 return true;
+		 } else if(board[1] == 0  && board[4] == player && board[7] == player) {
+			 indexWinningPosition = 1;
+		     return true;
+		 } else if(board[2] == 0  && board[5] == player && board[8] == player) {
+			 indexWinningPosition = 2;
+			 return true;	
+		 } else if(board[2] == player  && board[5] == 0 && board[8] == player) {
+			 indexWinningPosition = 5;
+			 return true;
+		 } else if(board[2] == player  && board[5] == player && board[8] == 0) {
+			 indexWinningPosition = 8;
+			 return true;
+		 } else if(board[3] == player  && board[6] == player && board[9] == 0) {
+			 indexWinningPosition = 9;
+			 return true;
+		 } else if(board[3] == player  && board[6] == 0 && board[9] == player) {
+				 indexWinningPosition = 6;
+				 return true;
+		 } else if(board[3] == 0  && board[6] == player && board[9] == player) {
+			 indexWinningPosition = 3;
+			 return true;
+		 } else if(board[1] == 0  && board[5] == player && board[9] == player) {
+			 indexWinningPosition = 1;
+			 return true;
+		 } else if(board[1] == player  && board[5] == 0 && board[9] == player) {
+			 indexWinningPosition = 5;
+			 return true;
+		 } else if(board[1] == player  && board[5] == player && board[9] == 0) {
+			 indexWinningPosition = 9;
+			 return true;
+		 } else if(board[3] == player  && board[5] == player && board[7] == ' ') {
+				 indexWinningPosition = 7;
+				 return true;
+		 } else if(board[3] == player  && board[5] == ' ' && board[7] == player) {
+			 indexWinningPosition = 5;
+			 return true;
+		 } else if(board[3] == ' '  && board[5] == player && board[7] == player) {
+			 indexWinningPosition = 3;
+			 return true;
+		 } 
 		 return false;
 	 }
 	 
