@@ -9,7 +9,7 @@ public class TicTacToeGame {
 	static char[] board = new char[10];
 	static String  playerSelected;
 	static char player1, player2;
-	
+	static int count;
 	static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	static void board() {
 		
@@ -138,9 +138,9 @@ public class TicTacToeGame {
 		 Random random = new Random();
 		 int toss = random.nextInt(2);
 		 if (toss == 1) {
-		      return"tails";
+		      return"Tails";
 		   } else {
-		      return"heads";
+		      return"Heads";
 		   }
 	 }
 	 
@@ -165,8 +165,51 @@ public class TicTacToeGame {
 		 
 	 }
 	 
+	 private static boolean isGameFinished(String player) {	 
+		 if(hasConstantWon('X')) {
+			 System.out.println(player +"  won");
+			 return true;
+		 }
+		 
+		 if(hasConstantWon('O')) {
+			 System.out.println(player +" won");
+			 return true;
+		 }
+		 
+		 if(count < 9)
+			return false;
+			 
+		 showBoard();
+		 System.out.println("the game ended in a tie!");
+		 return true;
+	 }
+	 
+	 private static boolean hasConstantWon(char symbol) {
+		 if(board[1] == symbol  && board[2] == symbol && board[3] == symbol) {
+			 return true;
+		 } else if(board[4] == symbol  && board[5] == symbol && board[6] == symbol) {
+			 return true;
+		 } else if(board[7] == symbol  && board[8] == symbol && board[9] == symbol) {
+			 return true;
+		 } else if(board[1] == symbol  && board[5] == symbol && board[9] == symbol) {
+			 return true;
+		 } else if(board[3] == symbol  && board[5] == symbol && board[7] == symbol) {
+			 return true;
+		 } else if(board[2] == symbol  && board[5] == symbol && board[8] == symbol) {
+			 return true;
+		 } else if(board[3] == symbol  && board[6] == symbol && board[9] == symbol) {
+			 return true;
+		 } else if(board[1] == symbol  && board[4] == symbol && board[7] == symbol) {
+			 return true;
+		 } else if(board[2] == symbol  && board[5] == symbol && board[8] == symbol) {
+			 return true;
+		 }
+		 return false;
+	 }
+	 
 	public static void main(String args[])  {
 		boolean isUserWontheToss;
+		count = 0;
 		board[0] = '\0';
 		board[1] = '\0';
 		board[2] = '\0';
@@ -193,15 +236,37 @@ public class TicTacToeGame {
 			while(true) {
 				if(isUserWontheToss) {
 					playerTurn();
+					count++;
+					if(isGameFinished("player1")) {
+						showBoard();
+						break;
+					}
 					showBoard();
 					computerMove();
+					count++;
+					if(isGameFinished("player2")) {
+						showBoard();
+						break;
+					}
 					showBoard();
 				} else {
 					computerMove();
+					count++;
+					if(isGameFinished("player2")) {
+						showBoard();
+						break;
+					}
+					System.out.println(" " + count);
 					showBoard();
 					playerTurn();
+					count++;
+					if(isGameFinished("player1")) {
+						showBoard();
+						break;
+					}
 					showBoard();
 				}
+				
 			}
 	}		 
 }
