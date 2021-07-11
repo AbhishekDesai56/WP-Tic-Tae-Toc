@@ -125,6 +125,8 @@ public class TicTacToeGame {
 		 int computerMove;
 		 if(checkPossibilityToWin(player2)) {
 			  computerMove = indexWinningPosition;
+		 } else if (checkPossibilityToWin(player1)) {
+			 computerMove = indexWinningPosition;
 		 } else {
 			 Random random = new Random();
 			 while(true) {
@@ -136,6 +138,7 @@ public class TicTacToeGame {
 		 }
 			placeMove(Integer.toString(computerMove), player2);
 			System.out.println("Computer Chose: " + computerMove);
+			indexWinningPosition = 0;
 	 }
 	     
 	 private static String toss() {
@@ -337,7 +340,6 @@ public class TicTacToeGame {
 						showBoard();
 						break;
 					}
-					System.out.println(" " + count);
 					showBoard();
 					playerTurn();
 					count++;
