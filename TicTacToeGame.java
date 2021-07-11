@@ -291,38 +291,60 @@ public class TicTacToeGame {
 		 return false;
 	 }
 	 
-	public static void main(String args[])  {
-		boolean isUserWontheToss;
-		count = 0;
-		board[0] = '\0';
-		board[1] = '\0';
-		board[2] = '\0';
-		board[3] = '\0';
-		board[4] = '\0';
-		board[5] = '\0';
-		board[6] = '\0';
-		board[7] = '\0';
-		board[8] = '\0';
-		board[9] = '\0';
-		
-			showBoard();
-			selectXandZero();
-			String tossResult = toss();
-			String tossSelectedByUser = tossSelectedByUser();
-			if(tossResult.equals(tossSelectedByUser)) {
-				System.out.println("User Won");
-				isUserWontheToss = true;
-			} else {
-				System.out.println("Computer Won");
-				isUserWontheToss = false;
-			}
+	 private  static void anotherGameCheck(boolean isGameOver) {
+		 try {
+			 if(isGameOver == true) {
+				 System.out.println("PLease choose 1. Do you want to player another game 2. Exit");
+				 int userChoice = Integer.parseInt(reader.readLine());
+				 switch (userChoice) {
+				case 1:
+					gameStart(true);
+					break;
+				case 2:
+					System.exit(0);
+					break;
+				default:
+					break;
+				}
+			 }
+		 } catch(Exception e) {
+			 e.printStackTrace();
+		 }
+	 }
+	 
+	 private static void gameStart(boolean isGameStarted) {
+		 boolean isGameOver = false, isUserWontheToss;
+		 count = 0;
+			board[0] = '\0';
+			board[1] = '\0';
+			board[2] = '\0';
+			board[3] = '\0';
+			board[4] = '\0';
+			board[5] = '\0';
+			board[6] = '\0';
+			board[7] = '\0';
+			board[8] = '\0';
+			board[9] = '\0';
 			
-			while(true) {
+		showBoard();
+		selectXandZero();
+		String tossResult = toss();
+		String tossSelectedByUser = tossSelectedByUser();
+		if(tossResult.equals(tossSelectedByUser)) {
+			System.out.println("User Won");
+			isUserWontheToss = true;
+		} else {
+			System.out.println("Computer Won");
+			isUserWontheToss = false;
+		}
+			
+		 while(isGameStarted) {
 				if(isUserWontheToss) {
 					playerTurn();
 					count++;
 					if(isGameFinished("player1")) {
 						showBoard();
+						isGameOver = true;
 						break;
 					}
 					showBoard();
@@ -330,6 +352,7 @@ public class TicTacToeGame {
 					count++;
 					if(isGameFinished("player2")) {
 						showBoard();
+						isGameOver = true;
 						break;
 					}
 					showBoard();
@@ -338,6 +361,7 @@ public class TicTacToeGame {
 					count++;
 					if(isGameFinished("player2")) {
 						showBoard();
+						isGameOver = true;
 						break;
 					}
 					showBoard();
@@ -345,11 +369,17 @@ public class TicTacToeGame {
 					count++;
 					if(isGameFinished("player1")) {
 						showBoard();
+						isGameOver = true;
 						break;
 					}
 					showBoard();
 				}
-				
 			}
+		 anotherGameCheck(isGameOver);
+	 }
+	 
+	 
+	public static void main(String args[])  {
+			gameStart(true);
 	}		 
 }
