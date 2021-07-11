@@ -134,7 +134,39 @@ public class TicTacToeGame {
 			System.out.println("Computer Chose: " + computerMove);
 	 }
 	     
+	 private static String toss() {
+		 Random random = new Random();
+		 int toss = random.nextInt(2);
+		 if (toss == 1) {
+		      return"tails";
+		   } else {
+		      return"heads";
+		   }
+	 }
+	 
+	 private static String tossSelectedByUser() {
+		 String selectedInput = null;
+		 System.out.println("PLease choose 1. Heads 2. Tails");
+		 try {
+			int userSelected = Integer.parseInt(reader.readLine());
+			switch(userSelected) {
+			case 1:
+				selectedInput = "Heads";
+			case 2:
+				selectedInput = "Tails";
+			default:
+				break;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return selectedInput;
+		 
+	 }
+	 
 	public static void main(String args[])  {
+		boolean isUserWontheToss;
 		board[0] = '\0';
 		board[1] = '\0';
 		board[2] = '\0';
@@ -148,12 +180,28 @@ public class TicTacToeGame {
 		
 			showBoard();
 			selectXandZero();
+			String tossResult = toss();
+			String tossSelectedByUser = tossSelectedByUser();
+			if(tossResult.equals(tossSelectedByUser)) {
+				System.out.println("User Won");
+				isUserWontheToss = true;
+			} else {
+				System.out.println("Computer Won");
+				isUserWontheToss = false;
+			}
 			
 			while(true) {
-				playerTurn();
-				showBoard();
-				computerMove();
-				showBoard();
+				if(isUserWontheToss) {
+					playerTurn();
+					showBoard();
+					computerMove();
+					showBoard();
+				} else {
+					computerMove();
+					showBoard();
+					playerTurn();
+					showBoard();
+				}
 			}
 	}		 
 }
