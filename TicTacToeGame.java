@@ -3,6 +3,7 @@ package TicTaeToc;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 public class TicTacToeGame {
 	static char[] board = new char[10];
@@ -37,10 +38,65 @@ public class TicTacToeGame {
 		}
 	}
     
-    static void showBoard() {
+    public static void showBoard() {
     	board();
     }
 	
+    static void placeMove(String position, char symbol) {
+			switch (position) {
+			case "1":
+				board[1] = symbol;	
+				break;
+			case "2":
+				board[2] = symbol;	
+				break;
+			case "3":
+				board[3] = symbol;	
+				break;
+			case "4":
+				board[4] = symbol;	
+				break;
+			case "5":
+				board[5] = symbol;	
+				break;
+			case "6":
+				board[6] = symbol;	
+				break;
+			case "7":
+				board[7] = symbol;	
+				break;
+			case "8":
+				board[8] = symbol;	
+				break;
+			case "9":
+				board[9] = symbol;	
+				break;
+			default:
+				System.out.println("Invalid move");
+				break;
+			}
+    }
+			
+    static void playerTurn() {
+    	
+    	String userInut;
+		try {
+			System.out.println("Where would you like to play? (1-9)");
+			userInut = reader.readLine();
+			placeMove(userInut, player1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    private static void computerMove() {
+    	Random random = new Random();
+		int computerMove;
+		computerMove = random.nextInt(9) + 1;
+		placeMove(Integer.toString(computerMove), player2);
+		}
+    
 	public static void main(String args[])  {
 		board[0] = '\0';
 		board[1] = '\0';
@@ -53,8 +109,14 @@ public class TicTacToeGame {
 		board[8] = '\0';
 		board[9] = '\0';
 		
-		board();
-		selectXandZero();
-		showBoard();
+			showBoard();
+			selectXandZero();
+			
+			while(true) {
+				playerTurn();
+				showBoard();
+				computerMove();
+				showBoard();
+			}
 	}		 
 }
